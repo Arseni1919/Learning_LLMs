@@ -124,7 +124,20 @@ outputs = model(**inputs)
 
 ### Postprocessing the output
 
+To continue the exaple: 
 
+```python
+import torch
+
+predictions = torch.nn.functional.softmax(outputs.logits, dim=-1)
+print(predictions)
+```
+
+Interpritation of the predictions:
+
+```python
+model.config.id2label
+```
 
 
 ## Credits
