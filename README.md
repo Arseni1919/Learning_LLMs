@@ -63,7 +63,7 @@ translator("Ce cours est produit par Hugging Face.")
 
 The pipeline function groups together 3 steps: preprocessing, passing the inputs through the model, and postprocessing:
 
-<img src="pics/tr_2.png" width="500">
+<img src="pics/tr_2.png" width="700">
 
 ### Preprocessing with a tokenizer
 
@@ -99,7 +99,7 @@ model = AutoModel.from_pretrained(checkpoint)
 
 Model heads take the high-dimentional output and project it to a different dimention:
 
-<img src="pics/tr_3.png" width="500">
+<img src="pics/tr_3.png" width="700">
 
 In general you want to use something more specific to the task instead of `AutoModel`. Examples are: 
 - Model (retrieve the hidden states)
@@ -124,7 +124,7 @@ outputs = model(**inputs)
 
 ### Postprocessing the output
 
-To continue the exaple: 
+To continue the example: 
 
 ```python
 import torch
@@ -138,6 +138,40 @@ Interpritation of the predictions:
 ```python
 model.config.id2label
 ```
+
+### Models
+
+To create a model with random weights just import the model and its configuration:
+
+```python
+from transformers import BertConfig, BertModel
+
+config = BertConfig()
+model = BertModel(config)
+
+# Model is randomly initialized!
+```
+
+But it is better not to invent the bicycle and th reload the pretrained model: 
+
+```python
+from transformers import BertModel
+
+model = BertModel.from_pretrained("bert-base-cased")
+```
+
+
+### Saving methods
+
+```python
+model.save_pretrained("my_folder")
+```
+
+```python
+tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
+model = BertModel.from_pretrained("[...]/Learning_LLMs/my_folder")
+```
+
 
 
 ## Credits
