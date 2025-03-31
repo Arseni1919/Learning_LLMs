@@ -173,6 +173,117 @@ model = BertModel.from_pretrained("[...]/Learning_LLMs/my_folder")
 ```
 
 
+### Tokenizers
+
+The goal of tokenizers is to transform text to numbers understandable by the model. We want the best representation that makes most sense to the model and if possible the smallest one.
+
+Word-based tokenizers are very tricky. They build up to huge vocabulary sizes, struggle with plurals of the same word, struggle with unknown words.
+
+Character-based tokenizers built up to very small dictionaries, but it is less meaningful to the models, the input and output will be huge for the model limiting its abilities.
+
+Subword tokenization. THere are two important principles here: frequent words should not be splitted; rare words should be splitted into meaningful subwords. Turkish language especially enjoys this kind of tokenization.
+
+Examples of tokenizers:
+- Byte-level BPE for GPT-2
+- WordPiece for BERT
+- SentencePiece / Unigram for multilingual models
+
+Example:
+```python
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
+tokenizer("Using a Transformer network is simple")
+```
+
+To save:
+```python
+tokenizer.save_pretrained("directory_on_my_computer")
+```
+
+Tokenization pipeline is executed in two steps. The tokenization itself:
+```python
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
+
+sequence = "Using a Transformer network is simple"
+tokens = tokenizer.tokenize(sequence)
+
+print(tokens)
+```
+
+The second stage is the conversion to input IDs:
+```python
+ids = tokenizer.convert_tokens_to_ids(tokens)
+
+print(ids)
+```
+
+The reverse is to decode the output for example:
+```python
+decoded_string = tokenizer.decode([7993, 170, 11303, 1200, 2443, 1110, 3014])
+print(decoded_string)
+```
+
+By default, the model in HF expects an input of a batch, i.e. the input that contains multiple sequences.
+```python
+input_ids = torch.tensor([ids])
+```
+
+To know what token is used as a padding token check via: `tokenizer.pad_token_id`.
+
+You need to use the _attention mask_ to properly concat sentences. Otherwise, the results will be different for the same sentence if we plug it separately as opposed to plugging it as a part of a batch.
+
+There is always a limit of how long the input sequence can be. The examples for models that can handle huge lengths are: **Longformer** and **LED**. In all other models, trancate the input. Look at the `tokenizer.max_len_single_sentence` property.
+
+
+```python
+# Will pad the sequences up to the maximum sequence length
+model_inputs = tokenizer(sequences, padding="longest")
+
+# Will pad the sequences up to the model max length
+# (512 for BERT or DistilBERT)
+model_inputs = tokenizer(sequences, padding="max_length")
+
+# Will pad the sequences up to the specified max length
+model_inputs = tokenizer(sequences, padding="max_length", max_length=8)
+```
+
+We can set different tensor types:
+```python
+sequences = ["I've been waiting for a HuggingFace course my whole life.", "So have I!"]
+
+# Returns PyTorch tensors
+model_inputs = tokenizer(sequences, padding=True, return_tensors="pt")
+
+# Returns TensorFlow tensors
+model_inputs = tokenizer(sequences, padding=True, return_tensors="tf")
+
+# Returns NumPy arrays
+model_inputs = tokenizer(sequences, padding=True, return_tensors="np")
+```
+
+Summary of tokenization:
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+checkpoint = "distilbert-base-uncased-finetuned-sst-2-english"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
+sequences = ["I've been waiting for a HuggingFace course my whole life.", "So have I!"]
+
+tokens = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt")
+output = model(**tokens)
+```
+
+## Fine-Tuning a Pretrained Model
+
+
+
+
+
 
 ## Credits
 
