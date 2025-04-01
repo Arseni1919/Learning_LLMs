@@ -1,6 +1,15 @@
 # Learning LLMs (HuggingFace NLP Course)
 
-## Terms
+## Installations 
+
+```bash
+pip install transformers
+pip install "transformers[torch]"
+pip install datasets
+pip install evaluate
+pip install accelerate
+pip install scipy scikit-learn
+```
 
 
 ## Transformers
@@ -280,7 +289,129 @@ output = model(**tokens)
 
 ## Fine-Tuning a Pretrained Model
 
+### Processing the Data
 
+Training a single batch:
+```python
+import torch
+from torch.optim import AdamW
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+# Same as before
+checkpoint = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
+sequences = [
+    "I've been waiting for a HuggingFace course my whole life.",
+    "This course is amazing!",
+]
+batch = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt")
+
+# This is new
+batch["labels"] = torch.tensor([1, 1])
+
+optimizer = AdamW(model.parameters())
+loss = model(**batch).loss
+loss.backward()
+optimizer.step()
+```
+
+To load a dataset just use the `load_dataset` function:
+```python
+from datasets import load_dataset
+
+raw_datasets = load_dataset("glue", "mrpc")
+```
+
+To see what feature types are in the dataset use: `raw_train_dataset.features`.
+Many of models use pair of sentences to learn, so the tokenizers of HF already know how to deal with pairs:
+```python
+inputs = tokenizer("This is the first sentence.", "This is the second one.")
+inputs
+```
+
+But if we want to tokenize the whole dataset, another trick is used. First we buid a separate function that takes as input a single line of a dataset:
+```python
+def tokenize_function(example):
+    return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
+```
+And then we map with the function through the dataset:
+```python
+tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
+tokenized_datasets
+```
+`batched=True` here just speeds up the process internally for the computer.
+
+No padding here, because we want to pad per batch, not per whole dataset. We use the `DataCollatorWithPadding` for this:
+```python
+from transformers import DataCollatorWithPadding
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+batch = data_collator(samples)
+{k: v.shape for k, v in batch.items()}
+```
+
+### Fine-tuning with Trainer API
+
+Example: 
+```python
+import torch
+import numpy as np
+from transformers import AutoModelForSequenceClassification
+from transformers import AutoTokenizer, DataCollatorWithPadding
+from transformers import Trainer, TrainingArguments
+from datasets import load_dataset
+import evaluate
+
+# Set device to MPS (Apple GPU) if available
+device = torch.device("mps") if torch.backends.mps.is_available() else torch.device("cpu")
+# Define training arguments
+training_args = TrainingArguments("test-trainer")
+# Load dataset
+raw_datasets = load_dataset("glue", "mrpc")
+# Load tokenizer
+checkpoint = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+
+# Tokenization function
+def tokenize_function(example):
+    return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
+
+# Tokenize dataset
+tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
+# Convert datasets to PyTorch format
+tokenized_datasets.set_format("torch")
+# Data collator
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
+# Load model
+model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
+model.to(device)  # Move model to MPS
+
+# definethe metric and the compute_metrics function
+metric = evaluate.load("glue", "mrpc")
+
+def compute_metrics(eval_preds):
+    metric = evaluate.load("glue", "mrpc")
+    logits, labels = eval_preds
+    predictions = np.argmax(logits, axis=-1)
+    return metric.compute(predictions=predictions, references=labels)
+
+# Initialize Trainer
+trainer = Trainer(
+    model,
+    training_args,
+    train_dataset=tokenized_datasets["train"],
+    eval_dataset=tokenized_datasets["validation"],
+    data_collator=data_collator,
+    tokenizer=tokenizer,
+    compute_metrics=compute_metrics,
+)
+# Train the model
+trainer.train()
+```
+
+
+### A Full Training
 
 
 
