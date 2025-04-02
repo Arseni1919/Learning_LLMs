@@ -9,6 +9,9 @@ pip install datasets
 pip install evaluate
 pip install accelerate
 pip install scipy scikit-learn
+pip install ipywidgets
+
+brew install git-lfs
 ```
 
 
@@ -68,7 +71,7 @@ translator("Ce cours est produit par Hugging Face.")
 ```
 
 
-## HF Transformers
+## 🤗 Transformers
 
 The pipeline function groups together 3 steps: preprocessing, passing the inputs through the model, and postprocessing:
 
@@ -415,6 +418,8 @@ trainer.train()
 
 Here, the point is to be able to train our model without using the Trainer API.
 
+The full code example is in [example_manual_training.py](example_manual_training.py).
+
 Prepare the data:
 ```python
 from datasets import load_dataset
@@ -517,8 +522,137 @@ for epoch in range(num_epochs):
 ```
 
 Now, evaluation...
+```python
+import evaluate
 
+metric = evaluate.load("glue", "mrpc")
+model.eval()
+for batch in eval_dataloader:
+    batch = {k: v.to(device) for k, v in batch.items()}
+    with torch.no_grad():
+        outputs = model(**batch)
 
+    logits = outputs.logits
+    predictions = torch.argmax(logits, dim=-1)
+    metric.add_batch(predictions=predictions, references=batch["labels"])
+
+metric.compute()
+```
+
+For accelerated learning use the TF `accelerate` library. It can distribute the learning between multiple GPUs / TPUs. The code sample:
+```python
+from accelerate import Accelerator
+from transformers import AdamW, AutoModelForSequenceClassification, get_scheduler
+
+accelerator = Accelerator()
+
+model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
+optimizer = AdamW(model.parameters(), lr=3e-5)
+
+train_dl, eval_dl, model, optimizer = accelerator.prepare(
+    train_dataloader, eval_dataloader, model, optimizer
+)
+
+num_epochs = 3
+num_training_steps = num_epochs * len(train_dl)
+lr_scheduler = get_scheduler(
+    "linear",
+    optimizer=optimizer,
+    num_warmup_steps=0,
+    num_training_steps=num_training_steps,
+)
+
+progress_bar = tqdm(range(num_training_steps))
+
+model.train()
+for epoch in range(num_epochs):
+    for batch in train_dl:
+        outputs = model(**batch)
+        loss = outputs.loss
+        accelerator.backward(loss)
+
+        optimizer.step()
+        lr_scheduler.step()
+        optimizer.zero_grad()
+        progress_bar.update(1)
+```
+
+## 🤗 Hub
+
+USing pretrained model is easy:
+```python
+from transformers import pipeline
+
+camembert_fill_mask = pipeline("fill-mask", model="camembert-base")
+results = camembert_fill_mask("Le camembert est <mask> :)")
+```
+Better to use `Auto*` classes:
+```python
+from transformers import AutoTokenizer, AutoModelForMaskedLM
+
+tokenizer = AutoTokenizer.from_pretrained("camembert-base")
+model = AutoModelForMaskedLM.from_pretrained("camembert-base")
+```
+
+There are three ways to create a new model in the HF Hub:
+- Using the `push_to_hub` API
+- Using the `huggingface_hub` Python library
+- Using the web interface
+
+### `push_to_hub` API
+
+To login:
+```python
+from huggingface_hub import notebook_login
+notebook_login()
+```
+Through arguments / model / tokenizer:
+```python
+training_args = TrainingArguments(
+    "bert-finetuned-mrpc", save_strategy="epoch", push_to_hub=True
+)
+model.push_to_hub("dummy-model")
+tokenizer.push_to_hub("dummy-model")
+```
+
+### `huggingface_hub` Python Library
+
+Creating repo:
+```python
+from huggingface_hub import create_repo
+create_repo("dummy-model")
+```
+To upload files:
+```python
+upload_file(
+    "<path_to_file>/config.json",
+    path_in_repo="config.json",
+    repo_id="<namespace>/dummy-model",
+)
+```
+To get the `repo` object:
+```python
+from huggingface_hub import Repository
+repo = Repository("<path_to_dummy_folder>", clone_from="<namespace>/dummy-model")
+repo.git_pull()
+repo.git_add()
+repo.git_commit()
+repo.git_push()
+repo.git_tag()
+```
+To save things locally:
+```python
+model.save_pretrained(".")
+tokenizer.save_pretrained(".")
+```
+
+### Web Interface
+
+Just as in GitHub.
+
+### Model Card
+Look at the paper: [Model Cards for Model Reporting](https://arxiv.org/pdf/1810.03993)
+Metadata: [full model card specification](https://github.com/huggingface/hub-docs/blame/main/modelcard.md)
 
 ## Credits
 
