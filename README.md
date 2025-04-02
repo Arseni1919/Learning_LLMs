@@ -3,7 +3,7 @@
 
 # Learning LLMs (HuggingFace NLP Course) 
 
-<div align="center"><h2>🤗</h2></div>
+<div align="center"><h3>🤗</h3></div>
 
 ## Installations 
 
