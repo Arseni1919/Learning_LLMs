@@ -1,4 +1,9 @@
-# Learning LLMs (HuggingFace NLP Course)
+
+
+
+# Learning LLMs (HuggingFace NLP Course) 
+
+<div align="center"><h2>🤗</h2></div>
 
 ## Installations 
 
