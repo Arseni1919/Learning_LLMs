@@ -709,5 +709,5 @@ TODO
 Stand on the shoulders of giants.
 
 - [HF | Learn](https://huggingface.co/learn)
-- []()
+- [Let's build GPT: from scratch, in code, spelled out.](https://www.youtube.com/watch?v=kCc8FmEb1nY&t=9s)
 
