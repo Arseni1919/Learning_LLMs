@@ -15,12 +15,14 @@ pip install evaluate
 pip install accelerate
 pip install scipy scikit-learn
 pip install ipywidgets
+pip install gradio
 
 brew install git-lfs
 ```
 
+> Chapter numbers are according to the [HF Learn](https://huggingface.co/learn) website.
 
-## Transformers
+## 1. Transformers
 
 <img src="pics/tr_1.png" width="500">
 
@@ -76,7 +78,7 @@ translator("Ce cours est produit par Hugging Face.")
 ```
 
 
-## 🤗 Transformers
+## 2. 🤗 Transformers
 
 The pipeline function groups together 3 steps: preprocessing, passing the inputs through the model, and postprocessing:
 
@@ -189,6 +191,9 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
 model = BertModel.from_pretrained("[...]/Learning_LLMs/my_folder")
 ```
 
+For a deeper dive into the HF Tokenizers library go to: [The 🤗 Tokenizers library](https://huggingface.co/learn/nlp-course/chapter6/1?fw=pt)
+
+
 
 ### Tokenizers
 
@@ -295,7 +300,13 @@ tokens = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt"
 output = model(**tokens)
 ```
 
-## Fine-Tuning a Pretrained Model
+Different types of tokenizers:
+- [Byte-Pair Encoding tokenization](https://youtu.be/HEikzVL-lZU)
+- [WordPiece tokenization](https://youtu.be/qpv6ms_t_1A)
+- [Unigram tokenization](https://youtu.be/TGZfZVuF9Yc)
+
+
+## 3. Fine-Tuning a Pretrained Model
 
 ### Processing the Data
 
@@ -358,6 +369,8 @@ data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 batch = data_collator(samples)
 {k: v.shape for k, v in batch.items()}
 ```
+
+For a deeper dive into the HF Datasets library go to: [The 🤗 Datasets library](https://huggingface.co/learn/nlp-course/chapter5/1?fw=pt)
 
 ### Fine-tuning with Trainer API
 
@@ -582,7 +595,7 @@ for epoch in range(num_epochs):
         progress_bar.update(1)
 ```
 
-## 🤗 Hub
+## 4. Share Models in 🤗 Hub
 
 USing pretrained model is easy:
 ```python
@@ -658,6 +671,38 @@ Just as in GitHub.
 ### Model Card
 Look at the paper: [Model Cards for Model Reporting](https://arxiv.org/pdf/1810.03993)
 Metadata: [full model card specification](https://github.com/huggingface/hub-docs/blame/main/modelcard.md)
+
+## 5. 🤗 Datasets
+
+For a deeper dive into the HF Datasets library go to: [The 🤗 Datasets library](https://huggingface.co/learn/nlp-course/chapter5/1?fw=pt)
+
+## 6. 🤗 Tokenizers
+
+For a deeper dive into the HF Tokenizers library go to: [The 🤗 Tokenizers library](https://huggingface.co/learn/nlp-course/chapter6/1?fw=pt)
+
+## 7. Classical NLP tasks
+
+To finetune for a specific NLP task, examine:
+[Classical NLP tasks](https://huggingface.co/learn/nlp-course/chapter7/1?fw=pt)
+
+## 8. How to ask for help
+
+Advises for debugging and using HF forums: 
+[How to ask for help](https://huggingface.co/learn/nlp-course/chapter8/1?fw=pt)
+
+## 9. Demos with Gradio
+
+TODO
+
+## 11. Fine-tune Large Language Models
+
+TODO
+
+## 12. Build Reasoning Models
+
+TODO
+
+
 
 ## Credits
 
