@@ -692,7 +692,20 @@ Advises for debugging and using HF forums:
 
 ## 9. Demos with Gradio
 
-TODO
+My first LLM Gradio application (7 lines of code):
+```python
+import gradio as gr
+from transformers import pipeline
+
+model = pipeline("text-generation")
+
+def predict(prompt):
+    completion = model(prompt)[0]["generated_text"]
+    return completion
+
+gr.Interface(fn=predict, inputs="text", outputs="text").launch()
+```
+The model is super stupid, but... Feels amazing :)
 
 ## 11. Fine-tune Large Language Models
 
