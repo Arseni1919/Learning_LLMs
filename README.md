@@ -707,9 +707,79 @@ gr.Interface(fn=predict, inputs="text", outputs="text").launch()
 ```
 The model is super stupid, but... Feels amazing :)
 
+The thing with the `Interface` module is that it can receive as inputs or outputs the words that represent the components or the classes of the components.
+
+We can use `title`, `description`, `article`, and `examples` properties to improve the interation with the interface:
+```python
+import gradio as gr
+from transformers import pipeline
+
+model = pipeline("text-generation")
+
+def predict(prompt):
+    completion = model(prompt)[0]["generated_text"]
+    return completion
+
+
+title = "Ask Rick a Question"
+description = """
+The bot was trained to answer questions based on Rick and Morty dialogues. Ask Rick anything!
+<img src="https://huggingface.co/spaces/course-demos/Rick_and_Morty_QA/resolve/main/rick.png" width=200px>
+"""
+
+article = "Check out [the original Rick and Morty Bot](https://huggingface.co/spaces/kingabzpro/Rick_and_Morty_Bot) that this demo is based off of."
+
+gr.Interface(
+    fn=predict,
+    inputs="textbox",
+    outputs="text",
+    title=title,
+    description=description,
+    article=article,
+    examples=[["What are you doing?"], ["Where should we time travel to?"]],
+    allow_flagging='never',
+    # live=True
+).launch()
+```
+
+You can load spaces from the HF itself and override them with your own parameters / inputs / outputs / etc.
+```python
+gr.load(
+    "spaces/abidlabs/remove-bg", inputs="webcam", title="Remove your webcam background!"
+).launch()
+```
+
+You can use `Blocks` instead of `Interface` - this is far more flexible!
+```python
+from transformers import pipeline
+import gradio as gr
+asr = pipeline("automatic-speech-recognition", "facebook/wav2vec2-base-960h")
+classifier = pipeline("text-classification")
+
+def speech_to_text(speech):
+    text = asr(speech)["text"]
+    return text
+
+def text_to_sentiment(text):
+    return classifier(text)[0]["label"]
+
+demo = gr.Blocks()
+with demo:
+    audio_file = gr.Audio(type="filepath")
+    text = gr.Textbox()
+    label = gr.Label()
+    b1 = gr.Button("Recognize Speech")
+    b1.click(speech_to_text, inputs=audio_file, outputs=text)
+    text.change(text_to_sentiment, inputs=text, outputs=label)
+demo.launch()
+```
+
 ## 11. Fine-tune Large Language Models
 
-TODO
+- Chat Templates - provide s structured interation with the models
+- Supervised Fine-Tuning - fine-tune to a specific task
+- LoRA - a smart approach to train a subset of model's parameters
+- Evaluation - use different metrics to evaluate the model (examples are: MMMLU, BBH, GSM8K, HELM, MATH benchmark, HumanEval benchmark, Alpaca Eval, Chatbot Arena)
 
 ## 12. Build Reasoning Models
 
