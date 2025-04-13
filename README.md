@@ -20,7 +20,10 @@
 * [Build Reasoning Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#12-build-reasoning-models)
 * [Credits](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#credits)
 
-## Installations 
+## Installations
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
+
+
 
 ```bash
 pip install transformers
@@ -38,6 +41,7 @@ brew install git-lfs
 > Chapter numbers are according to the [HF Learn](https://huggingface.co/learn) website.
 
 ## 1. Transformers
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 <img src="pics/tr_1.png" width="500">
 
@@ -94,6 +98,7 @@ translator("Ce cours est produit par Hugging Face.")
 
 
 ## 2. 🤗 Transformers
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 The pipeline function groups together 3 steps: preprocessing, passing the inputs through the model, and postprocessing:
 
@@ -322,6 +327,7 @@ Different types of tokenizers:
 
 
 ## 3. Fine-Tuning a Pretrained Model
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 ### Processing the Data
 
@@ -611,6 +617,7 @@ for epoch in range(num_epochs):
 ```
 
 ## 4. Share Models in 🤗 Hub
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 USing pretrained model is easy:
 ```python
@@ -688,24 +695,29 @@ Look at the paper: [Model Cards for Model Reporting](https://arxiv.org/pdf/1810.
 Metadata: [full model card specification](https://github.com/huggingface/hub-docs/blame/main/modelcard.md)
 
 ## 5. 🤗 Datasets
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 For a deeper dive into the HF Datasets library go to: [The 🤗 Datasets library](https://huggingface.co/learn/nlp-course/chapter5/1?fw=pt)
 
 ## 6. 🤗 Tokenizers
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 For a deeper dive into the HF Tokenizers library go to: [The 🤗 Tokenizers library](https://huggingface.co/learn/nlp-course/chapter6/1?fw=pt)
 
 ## 7. Classical NLP tasks
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 To finetune for a specific NLP task, examine:
 [Classical NLP tasks](https://huggingface.co/learn/nlp-course/chapter7/1?fw=pt)
 
 ## 8. How to ask for help
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 Advises for debugging and using HF forums: 
 [How to ask for help](https://huggingface.co/learn/nlp-course/chapter8/1?fw=pt)
 
 ## 9. Demos with Gradio
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 My first LLM Gradio application (7 lines of code):
 ```python
@@ -790,6 +802,7 @@ demo.launch()
 ```
 
 ## 11. Fine-tune Large Language Models
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 - _Chat Templates_ - provide s structured interation with the models
 - _Supervised Fine-Tuning_ - fine-tune to a specific task
@@ -797,6 +810,7 @@ demo.launch()
 - _Evaluation_ - use different metrics to evaluate the model (examples are: MMMLU, BBH, GSM8K, HELM, MATH benchmark, HumanEval benchmark, Alpaca Eval, Chatbot Arena)
 
 ## 12. Build Reasoning Models
+[(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
 TODO
 
