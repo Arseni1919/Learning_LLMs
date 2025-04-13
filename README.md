@@ -20,6 +20,8 @@
 * [Build Reasoning Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#12-build-reasoning-models)
 * [Credits](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#credits)
 
+---
+
 ## Installations
 [(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
