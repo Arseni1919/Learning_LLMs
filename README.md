@@ -6,19 +6,19 @@
 <div align="center"><h3>🤗</h3></div>
 
 ## Contents
-> [Installations](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#installations)
-> [Transformers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#1-transformers)
-> [🤗 Transformers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#2--transformers)
-> [Fine-Tuning a Pretrained Model](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#3-fine-tuning-a-pretrained-model)
-> [Share Models in 🤗 Hub](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#4-share-models-in--hub)
-> [🤗 Datasets](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#5--datasets)
-> [🤗 Tokenizers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#6--tokenizers)
-> [Classical NLP tasks](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#7-classical-nlp-tasks)
-> [How to ask for help](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#8-how-to-ask-for-help)
-> [Demos with Gradio](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#9-demos-with-gradio)
-> [Fine-tune Large Language Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#11-fine-tune-large-language-models)
-> [Build Reasoning Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#12-build-reasoning-models)
-> [Credits](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#credits)
+* [Installations](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#installations)
+* [Transformers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#1-transformers)
+* [🤗 Transformers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#2--transformers)
+* [Fine-Tuning a Pretrained Model](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#3-fine-tuning-a-pretrained-model)
+* [Share Models in 🤗 Hub](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#4-share-models-in--hub)
+* [🤗 Datasets](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#5--datasets)
+* [🤗 Tokenizers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#6--tokenizers)
+* [Classical NLP tasks](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#7-classical-nlp-tasks)
+* [How to ask for help](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#8-how-to-ask-for-help)
+* [Demos with Gradio](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#9-demos-with-gradio)
+* [Fine-tune Large Language Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#11-fine-tune-large-language-models)
+* [Build Reasoning Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#12-build-reasoning-models)
+* [Credits](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#credits)
 
 ## Installations 
 
