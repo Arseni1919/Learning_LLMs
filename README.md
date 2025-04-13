@@ -5,6 +5,21 @@
 
 <div align="center"><h3>🤗</h3></div>
 
+## Contents
+> [Installations](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#installations)
+> [Transformers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#1-transformers)
+> [🤗 Transformers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#2--transformers)
+> [Fine-Tuning a Pretrained Model](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#3-fine-tuning-a-pretrained-model)
+> [Share Models in 🤗 Hub](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#4-share-models-in--hub)
+> [🤗 Datasets](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#5--datasets)
+> [🤗 Tokenizers](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#6--tokenizers)
+> [Classical NLP tasks](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#7-classical-nlp-tasks)
+> [How to ask for help](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#8-how-to-ask-for-help)
+> [Demos with Gradio](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#9-demos-with-gradio)
+> [Fine-tune Large Language Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#11-fine-tune-large-language-models)
+> [Build Reasoning Models](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#12-build-reasoning-models)
+> [Credits](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#credits)
+
 ## Installations 
 
 ```bash
@@ -776,10 +791,10 @@ demo.launch()
 
 ## 11. Fine-tune Large Language Models
 
-- Chat Templates - provide s structured interation with the models
-- Supervised Fine-Tuning - fine-tune to a specific task
-- LoRA - a smart approach to train a subset of model's parameters
-- Evaluation - use different metrics to evaluate the model (examples are: MMMLU, BBH, GSM8K, HELM, MATH benchmark, HumanEval benchmark, Alpaca Eval, Chatbot Arena)
+- _Chat Templates_ - provide s structured interation with the models
+- _Supervised Fine-Tuning_ - fine-tune to a specific task
+- _LoRA_ - a smart approach to train a subset of model's parameters
+- _Evaluation_ - use different metrics to evaluate the model (examples are: MMMLU, BBH, GSM8K, HELM, MATH benchmark, HumanEval benchmark, Alpaca Eval, Chatbot Arena)
 
 ## 12. Build Reasoning Models
 
