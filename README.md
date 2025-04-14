@@ -814,7 +814,8 @@ demo.launch()
 ## 12. Build Reasoning Models
 [(back to contents)](https://github.com/Arseni1919/Learning_LLMs?tab=readme-ov-file#contents)
 
-TODO
+- RL can be very helpful for LLMs
+- The chapter basically goes through the paper and its HF implementation that allows to train LLMs with GRPO
 
 
 
